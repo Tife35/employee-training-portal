@@ -1,0 +1,201 @@
+<!-- <div *ngIf="questions?.length && currentQuestion; else noQuiz">
+
+  <form [formGroup]="quizForm" (ngSubmit)="submitQuiz()">
+
+    <h3>
+      Question {{ currentQuestionIndex + 1 }}:
+      {{ currentQuestion.question }}
+    </h3>
+    
+
+    <div *ngFor="let option of currentQuestion.options">
+      <label>
+        <input
+          type="radio"
+          formControlName="answer"
+          [value]="option"
+        />
+        {{ option }}
+      </label>
+    </div>
+
+    <div *ngIf="quizForm.get('answer')?.touched && quizForm.get('answer')?.invalid">
+      Please select an answer
+    </div>
+
+    <button 
+    type="submit"
+    [disabled]="quizForm.invalid"
+    >
+      {{ currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next' }}
+    </button>
+
+  </form>
+
+  <p>Score: {{ score }}</p>
+
+  <div *ngIf="quizCompleted">
+    <h2>Quiz Completed</h2>
+    <p>
+        Score: {{ score }} / {{ questions.length }}
+    </p>
+
+    <p>
+        Percentage: {{ percentage }}%
+    </p>
+
+    <p *ngIf="percentage >= 70">
+        Congratulations! You passed the quiz.
+    </p>
+
+    <p *ngIf="percentage < 70">
+        Unfortunately, you did not pass. Please try again.
+    </p>
+
+    <div *ngIf="savedResult">
+        <h3>Previous Attempt</h3>
+        <p>
+            Score: {{ savedResult.score }} / {{ savedResult.total }}
+        </p>
+        <p>
+            Percentage: {{ savedResult.percentage }}%
+        </p>
+    </div>
+
+    <button (click)="retryQuiz()">
+        Retry Quiz
+    </button>
+  </div>
+
+</div>
+
+<ng-template #noQuiz>
+  <p>No quiz available for this course.</p>
+</ng-template> -->
+
+<div
+  class="quiz-container"
+  *ngIf="(questions?.length || 0) > 0 && currentQuestion; else noQuiz">
+
+  <div class="quiz-card">
+
+    <form
+      [formGroup]="quizForm"
+      (ngSubmit)="submitQuiz()">
+
+      <h3 class="quiz-question">
+
+        Question {{ currentQuestionIndex + 1 }}:
+
+        {{ currentQuestion.question }}
+
+      </h3>
+
+      <div *ngFor="let option of currentQuestion.options">
+
+        <label class="quiz-option">
+
+          <input
+            type="radio"
+            formControlName="answer"
+            [value]="option"
+          />
+
+          {{ option }}
+
+        </label>
+
+      </div>
+
+      <div
+        class="validation-message"
+        *ngIf="quizForm.get('answer')?.touched && quizForm.get('answer')?.invalid">
+
+        Please select an answer
+
+      </div>
+
+      <button
+        class="quiz-btn"
+        type="submit"
+        [disabled]="quizForm.invalid">
+
+        {{ currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next' }}
+
+      </button>
+
+    </form>
+
+    <p class="current-score">
+      Score: {{ score }}
+    </p>
+
+    <div
+      class="quiz-result"
+      *ngIf="quizCompleted">
+
+      <h2>Quiz Completed</h2>
+
+      <p>
+        Score: {{ score }} / {{ questions.length }}
+      </p>
+
+      <p>
+        Percentage: {{ percentage }}%
+      </p>
+
+      <p
+        class="pass-message"
+        *ngIf="percentage >= 70">
+
+        Congratulations! You passed the quiz.
+
+      </p>
+
+      <p
+        class="fail-message"
+        *ngIf="percentage < 70">
+
+        Unfortunately, you did not pass. Please try again.
+
+      </p>
+
+      <div
+        class="previous-attempt"
+        *ngIf="savedResult">
+
+        <h3>Previous Attempt</h3>
+
+        <p>
+          Score: {{ savedResult.score }} / {{ savedResult.total }}
+        </p>
+
+        <p>
+          Percentage: {{ savedResult.percentage }}%
+        </p>
+
+      </div>
+
+      <button
+        class="retry-btn"
+        (click)="retryQuiz()">
+
+        Retry Quiz
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<ng-template #noQuiz>
+
+  <div class="no-quiz">
+
+    <p>No quiz available for this course.</p>
+
+  </div>
+
+</ng-template>

@@ -1,0 +1,134 @@
+
+<!-- <h2>{{ course?.title }}</h2>
+
+<p>{{ course?.description }}</p>
+
+<p>{{ course?.duration }}</p>
+
+<p>Progress: {{ getProgress() }}%</p>
+
+<hr />
+
+<div *ngFor="let lesson of course?.lessons">
+    <h4>{{ lesson.title }}</h4>
+
+    <button
+    *ngIf="!lesson.completed"
+    (click)="markComplete(lesson)"
+    >
+        Mark Complete
+    </button>
+
+    <span *ngIf="lesson.completed">
+        Completed
+
+    </span>
+
+</div>
+ -->
+
+ <!-- <div class="course-detail-container">
+
+  <div class="course-detail-card">
+
+    <h2 class="course-title">
+      {{ course?.title }}
+    </h2>
+
+    <p class="course-description">
+      {{ course?.description }}
+    </p>
+
+    <p class="course-duration">
+      Duration: {{ course?.duration }}
+    </p>
+
+    <div class="progress-section">
+      <p class="progress-text">
+        Progress: {{ getProgress() }}%
+      </p>
+    </div>
+
+    <hr />
+
+    <div
+      class="lesson-card"
+      *ngFor="let lesson of course?.lessons">
+
+      <h4 class="lesson-title">
+        {{ lesson.title }}
+      </h4>
+
+      <button
+        class="lesson-btn"
+        *ngIf="!lesson.completed"
+        (click)="markComplete(lesson)">
+        Mark Complete
+      </button>
+
+      <span
+        class="completed"
+        *ngIf="lesson.completed">
+        Completed ✔
+      </span>
+
+    </div>
+
+  </div>
+
+</div> -->
+
+<div class="course-detail-container" *ngIf="course; else loading">
+
+  <div class="course-detail-card">
+
+    <h2 class="course-title">
+      {{ course.title }}
+    </h2>
+
+    <p class="course-description">
+      {{ course.description }}
+    </p>
+
+    <p class="course-duration">
+      Duration: {{ course.duration }}
+    </p>
+
+    <div class="progress-section">
+      <p class="progress-text">
+        Progress: {{ getProgress() }}%
+      </p>
+    </div>
+
+    <hr />
+
+    <div
+      class="lesson-card"
+      *ngFor="let lesson of course.lessons">
+
+      <h4 class="lesson-title">
+        {{ lesson.title }}
+      </h4>
+
+      <button
+        class="lesson-btn"
+        *ngIf="!lesson.completed"
+        (click)="markComplete(lesson)">
+        Mark Complete
+      </button>
+
+      <span
+        class="completed"
+        *ngIf="lesson.completed">
+        Completed ✔
+      </span>
+
+    </div>
+
+  </div>
+
+</div>
+
+<ng-template #loading>
+  <p>Loading course...</p>
+</ng-template>

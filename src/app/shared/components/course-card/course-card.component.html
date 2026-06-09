@@ -1,0 +1,34 @@
+<!-- <div class="course-card">
+    <h3>{{ course?.title }}</h3>
+
+    <p>{{ course?.description }}</p>
+
+    <p class="progress-text">
+        Progress: {{ course?.progress }}%
+    </p>
+
+    <button class=btn-primary(click)="selectCourse()">
+        {{ course?.progress === 0 ? 'Start' : 'Continue' }}
+    </button>
+</div> -->
+
+
+<div class="course-card">
+
+  <h3>{{ course?.title }}</h3>
+
+  <p>{{ course?.description }}</p>
+
+  <p class="progress-label">
+    Progress: {{ course?.progress }}%
+  </p>
+
+  <button
+    class="course-btn"
+    (click)="selectCourse()">
+
+    {{ course?.progress === 0 ? 'Start' : 'Continue' }}
+
+  </button>
+
+</div>

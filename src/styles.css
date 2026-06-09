@@ -1,1 +1,105 @@
 /* You can add global styles to this file, and also import other style files */
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Whole App */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f7fc;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4 {
+  color: #1f2937;
+  margin-bottom: 12px;
+}
+
+/* Paragraphs */
+p {
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+button {
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+/* Primary Button */
+.btn-primary,
+button {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.btn-primary:hover,
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  outline: none;
+  transition: 0.3s;
+}
+
+input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+/* Card */
+.card,
+.course-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
+}
+
+.card:hover,
+.course-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Error Messages */
+.error-message {
+  color: #dc2626;
+  margin-top: 5px;
+  font-size: 13px;
+}
+
+/* Container */
+.page-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 15px;
+  }
+}

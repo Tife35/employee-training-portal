@@ -1,0 +1,59 @@
+[
+    {
+        "id": 1,
+        "title": "Angular Fundamentals",
+        "description": "Learn Angular basics",
+        "progress": 40,
+        "duration": "3 hours",
+        "lessons": [
+            {
+                "id": 1,
+                "title": "Introduction to Angular",
+                "completed": false
+            },
+            {
+                "id": 2,
+                "title": "Components",
+                "completed": false
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "title": "TypeScript Basics",
+        "description": "Learn TypeScript",
+        "progress": 0,
+        "duration": "1 hour",
+        "lessons": [
+            {
+                "id": 1,
+                "title": "What is TypeScript?",
+                "completed": false
+            },
+            {
+                "id": 2,
+                "title": "Types & Interfaces",
+                "completed": false
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Angular Routing",
+        "description": "Learn Routing",
+        "progress": 70,
+        "duration": "2 hours",
+        "lessons": [
+            {
+                "id": 1,
+                "title": "Router Basics",
+                "completed": false
+            },
+            {
+                "id": 2,
+                "title": "Route Parameters",
+                "completed": false
+            }
+        ]
+    }
+]

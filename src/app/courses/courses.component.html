@@ -1,0 +1,30 @@
+<!-- <h2>Courses</h2>
+<p>Total courses: {{ filteredCourses?.length || 0 }}</p>
+<div *ngFor="let course of filteredCourses">
+    <app-course-card [course]="course" (courseClick)="viewCourse($event)"></app-course-card>
+
+</div>
+ -->
+
+
+ <div class="courses-container">
+
+  <div class="courses-header">
+    <h2>Training Courses</h2>
+
+    <p class="course-count">
+      Total Courses: {{ filteredCourses?.length }}
+    </p>
+  </div>
+
+  <div class="courses-grid">
+
+    <app-course-card
+      *ngFor="let course of filteredCourses"
+      [course]="course"
+      (courseClick)="viewCourse($event)">
+    </app-course-card>
+
+  </div>
+
+</div>

@@ -1,0 +1,92 @@
+<div class="dashboard-container">
+
+  <div class="dashboard-header">
+<h2>Dashboard</h2>
+
+<div class="user-section" *ngIf="user">
+<p class="welcome-text">
+    Welcome, {{ user.email }}
+</p>
+
+<button class="logout-btn" (click)="logout()">
+    Logout
+</button>
+</div>
+  </div>
+
+
+<div class="search-section">
+<input
+  type="text"
+  placeholder="Search Course..."
+  [(ngModel)]="searchText"
+  (input)="filterCourses()"
+  />
+</div>
+
+  <div class="course-list">
+  <div class="course-item" *ngFor="let course of filteredCourses">
+    <h3>{{ course.title }}</h3>
+    <p>{{ course.description }}</p>
+  </div>
+  </div>
+
+
+
+
+<div class="empty-state" *ngIf="completedCourses === 0 && coursesInProgress === 0; else progress">
+  <p>No learning progress yet.</p>
+  <p>Start a course to see your progress.</p>
+</div>
+
+<ng-template #progress>
+
+  <div class="progress-section">
+  <h2>Progress Dashboard</h2>
+  <div class="stats-grid">
+    <div class="stat-card">
+  <h3>{{ completedCourses }}</h3>
+  <p>Courses Completed</p>
+  </div>
+
+<div class="stat-card">
+  <h3>{{ coursesInProgress }}</h3>
+  <p>Courses In Progress</p>
+</div>
+
+<div class="stat-card">
+  <h3>{{ averageQuizScore }}%</h3>
+  <p>Average Quiz Score</p>
+</div>
+
+  </div>
+
+<app-progress-bar [progress]="averageQuizScore"></app-progress-bar>
+
+
+   <div class="activity-card">
+  <h3>Recent Activity</h3>
+  <p>
+    <strong>Last Completed Course:</strong> 
+    Angular Fundamentals
+  </p>
+  </div>
+
+  
+  <div class="history-card">
+  <h3>Quiz History</h3>
+  <ul>
+    <li>Angular Fundamentals - 80%</li>
+    <li>TypeScript Basics - 70%</li>
+  </ul>
+  </div>
+  </div>
+
+</ng-template>
+</div>
+
+
+
+
+
+<!-- <button routerLink="/login">Logout</button> -->

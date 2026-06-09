@@ -1,0 +1,27 @@
+[
+  {
+    "courseId": 1,
+    "questions": [
+      {
+        "id": 1,
+        "question": "What is Angular?",
+        "options": [
+          "Framework",
+          "Database",
+          "Browser"
+        ],
+        "answer": "Framework"
+      },
+      {
+        "id": 2,
+        "question": "What is TypeScript?",
+        "options": [
+          "Language",
+          "Database",
+          "Framework"
+        ],
+        "answer": "Language"
+      }
+    ]
+  }
+]
