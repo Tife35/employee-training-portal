@@ -105,3 +105,17 @@
   }
 
 }
+
+.courses-btn {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.courses-btn:hover {
+  background-color: #1d4ed8;
+}

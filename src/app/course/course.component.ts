@@ -55,22 +55,23 @@
 // }
 
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '../core/services/course.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-course',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './course.component.html',
   styleUrl: './course.component.css',
 })
 export class CourseComponent implements OnInit {
 
   courseId!: number;
-  course: any = undefined;
+  course = signal<any>(undefined);
 
   constructor(
     private route: ActivatedRoute,
@@ -90,22 +91,36 @@ export class CourseComponent implements OnInit {
 
       this.courseService.getCourseById(id).subscribe(course => {
         console.log('Course loaded:', course);
-        this.course = course;
+        this.course.set(course);
       });
     });
   }
 
   markComplete(lesson: any) {
-    lesson.completed = true;
-  }
+    this.course.update(currentCourse => {
+    if (currentCourse && currentCourse.lessons) {
+
+      const target = currentCourse.lessons.find(
+        (item: any) => item.title === lesson.title
+      );
+
+      if (target) {
+        target.completed = true;
+      }
+    }
+
+    return { ...currentCourse };
+  });
+}
 
   getProgress() {
-    if (!this.course?.lessons?.length) return 0;
+    const currentCourse = this.course();
+    if (!currentCourse?.lessons?.length) return 0;
 
-    const completed = this.course.lessons.filter(
+    const completed = currentCourse.lessons.filter(
       (lesson: any) => lesson.completed
     ).length;
 
-    return (completed / this.course.lessons.length) * 100;
+    return (completed / currentCourse.lessons.length) * 100;
   }
 }

@@ -3,6 +3,10 @@
   <div class="dashboard-header">
 <h2>Dashboard</h2>
 
+<button class="courses-btn" routerLink="/courses">
+    View Courses
+  </button>
+
 <div class="user-section" *ngIf="user">
 <p class="welcome-text">
     Welcome, {{ user.email }}

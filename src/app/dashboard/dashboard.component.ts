@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProgressService } from '../core/services/progress.service';
 import { ProgressBarComponent } from '../shared/progress-bar/progress-bar.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, ProgressBarComponent],
+  imports: [CommonModule, FormsModule, ProgressBarComponent, RouterModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })

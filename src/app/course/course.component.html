@@ -78,20 +78,24 @@
 
 </div> -->
 
-<div class="course-detail-container" *ngIf="course; else loading">
+<div class="course-detail-container" *ngIf="course(); else loading">
+
+   <button class="back-btn" routerLink="/courses">
+    ← Back to Courses
+  </button>
 
   <div class="course-detail-card">
 
     <h2 class="course-title">
-      {{ course.title }}
+      {{ course().title }}
     </h2>
 
     <p class="course-description">
-      {{ course.description }}
+      {{ course().description }}
     </p>
 
     <p class="course-duration">
-      Duration: {{ course.duration }}
+      Duration: {{ course().duration }}
     </p>
 
     <div class="progress-section">
@@ -104,7 +108,7 @@
 
     <div
       class="lesson-card"
-      *ngFor="let lesson of course.lessons">
+      *ngFor="let lesson of course().lessons">
 
       <h4 class="lesson-title">
         {{ lesson.title }}
@@ -124,6 +128,10 @@
       </span>
 
     </div>
+
+     <button class="quiz-btn" [routerLink]="['/quiz', course().id]">
+    Take Quiz
+  </button>
 
   </div>
 

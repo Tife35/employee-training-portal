@@ -1,39 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { QuizService } from '../core/services/quiz.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-quiz',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './quiz.component.html',
   styleUrl: './quiz.component.css',
 })
 export class QuizComponent implements OnInit {
 
-  score: number = 0;
-
-  percentage: number = 0;
+  score = signal(0);
+  percentage = signal(0);
+  questions = signal<any[]>([]);
+  quizCompleted = signal(false);
+  currentQuestionIndex = signal(0);
 
   savedResult: any;
 
-  quizCompleted = false;
-
   retryQuiz() {
     this.quizForm.reset();
-    this.score = 0;
-    this.currentQuestionIndex = 0;
-    this.quizCompleted = false;
-    this.percentage = 0;
+    this.score.set(0);
+    this.currentQuestionIndex.set(0);
+    this.quizCompleted.set(false);
+    this.percentage.set(0);
   }
 
   quizForm!: FormGroup;
 
   courseId!: number;
-  questions: any[] = [];
-  currentQuestionIndex = 0;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private quizService: QuizService) {}
   
@@ -45,17 +44,14 @@ export class QuizComponent implements OnInit {
     if (data) {
       this.savedResult = JSON.parse(data);
     }
-    this.quizService.getQuizByCourseId(this.courseId).subscribe(data => {
+    this.quizService.getQuizByCourseId(this.courseId).subscribe((data: any) => {
       console.log("RAW QUIZ DATA:", data);
       
-      this.questions = Array.isArray(data) ? data : (data?.questions ?? []);
-       this.currentQuestionIndex = 0;
-      
-      if (this.questions.length > 0) {
+      const qs = data ?? [];
+      this.questions.set(qs);
+      this.currentQuestionIndex.set(0);
+
         this.initForm();
-      } else {
-        console.error("No questions found");
-      }
     });
   }
 
@@ -66,11 +62,11 @@ export class QuizComponent implements OnInit {
   }
 
   get currentQuestion() {
-    return this.questions[this.currentQuestionIndex];
+    return this.questions()?.[this.currentQuestionIndex()] ?? null;
   }
 
   submitQuiz() {
-    if (this.quizForm.invalid) {
+    if (this.quizForm.invalid || !this.currentQuestion) {
       this.quizForm.markAllAsTouched();
       return;
     }
@@ -79,7 +75,7 @@ export class QuizComponent implements OnInit {
     const correctAnswer = this.currentQuestion.answer;
 
     if (selectedAnswer === correctAnswer) {
-      this.score++;
+      this.score.update(s => s + 1);
     }
 
     this.nextQuestion();
@@ -88,23 +84,27 @@ export class QuizComponent implements OnInit {
   // Move to next question
   nextQuestion() {
     this.quizForm.reset();
+     const index = this.currentQuestionIndex();
+     const total = this.questions().length;
 
-    if (this.currentQuestionIndex < this.questions.length - 1) {
-      this.currentQuestionIndex++;
-    } else {
-      this.percentage = (this.score / this.questions.length) * 100;
-      this.quizCompleted = true;
+     if (index < total - 1) {
+      this.currentQuestionIndex.set(index + 1);
+     } else {
+      const finalScore = this.score();
+      const percent = total > 0 ? (finalScore / total) * 100 : 0;
+
+      this.percentage.set(percent);
+      this.quizCompleted.set(true);
+     
 
       localStorage.setItem(
         `quiz_${this.courseId}_score`,
         JSON.stringify({
-          score: this.score,
-          total: this.questions.length,
-          percentage: this.percentage
+          score: finalScore,
+          total,
+          percentage: percent
         })
       );
-      console.log('Quiz completed!');
-      console.log('Final Score:', this.score, '/', this.questions.length);
     }
   }
 }

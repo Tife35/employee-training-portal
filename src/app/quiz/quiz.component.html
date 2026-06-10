@@ -75,7 +75,11 @@
 
 <div
   class="quiz-container"
-  *ngIf="(questions?.length || 0) > 0 && currentQuestion; else noQuiz">
+  *ngIf="questions().length > 0 && currentQuestion; else noQuiz">
+
+  <button class="back-btn" [routerLink]="['/course', courseId]">
+    ← Back to Course
+  </button>
 
   <div class="quiz-card">
 
@@ -85,7 +89,7 @@
 
       <h3 class="quiz-question">
 
-        Question {{ currentQuestionIndex + 1 }}:
+        Question {{ currentQuestionIndex() + 1 }}:
 
         {{ currentQuestion.question }}
 
@@ -120,33 +124,33 @@
         type="submit"
         [disabled]="quizForm.invalid">
 
-        {{ currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next' }}
+        {{ currentQuestionIndex() === questions().length - 1 ? 'Finish' : 'Next' }}
 
       </button>
 
     </form>
 
     <p class="current-score">
-      Score: {{ score }}
+      Score: {{ score() }}
     </p>
 
     <div
       class="quiz-result"
-      *ngIf="quizCompleted">
+      *ngIf="quizCompleted()">
 
       <h2>Quiz Completed</h2>
 
       <p>
-        Score: {{ score }} / {{ questions.length }}
+        Score: {{ score() }} / {{ questions().length }}
       </p>
 
       <p>
-        Percentage: {{ percentage }}%
+        Percentage: {{ percentage() }}%
       </p>
 
       <p
         class="pass-message"
-        *ngIf="percentage >= 70">
+        *ngIf="percentage() >= 70">
 
         Congratulations! You passed the quiz.
 
@@ -154,7 +158,7 @@
 
       <p
         class="fail-message"
-        *ngIf="percentage < 70">
+        *ngIf="percentage() < 70">
 
         Unfortunately, you did not pass. Please try again.
 

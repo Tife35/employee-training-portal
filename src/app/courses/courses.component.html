@@ -9,21 +9,25 @@
 
  <div class="courses-container">
 
+  <button class="back-btn" routerLink="/dashboard">
+    ← Back to Dashboard
+  </button>
+
   <div class="courses-header">
     <h2>Training Courses</h2>
 
     <p class="course-count">
-      Total Courses: {{ filteredCourses?.length }}
+      Total Courses: {{ filteredCourses().length }}
     </p>
   </div>
 
   <div class="courses-grid">
-
-    <app-course-card
-      *ngFor="let course of filteredCourses"
-      [course]="course"
-      (courseClick)="viewCourse($event)">
-    </app-course-card>
+  <app-course-card
+  *ngFor="let course of filteredCourses()"
+  [course]="course"
+  (courseClick)="viewCourse($event)">
+</app-course-card>
+  
 
   </div>
 
